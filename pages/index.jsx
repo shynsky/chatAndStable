@@ -10,6 +10,7 @@ const inter = Inter({
 export default function Home () {
   const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState([])
 
   const sendDescription = async () => {
     try {
@@ -24,7 +25,10 @@ export default function Home () {
         },
       });
       const res = await request.json();
-      console.log(res);
+      if (res.message) {
+        setLoading(false)
+        setResult(res.result)
+      }
     } catch (err) {
       console.error(err);
     }
