@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Head from 'next/head';
+import Loading from '../components/loading'
 import { Inter } from '@next/font/google';
 
 const inter = Inter({
@@ -41,6 +42,8 @@ export default function Home () {
     setLoading(true);
   };
 
+  if (loading) return <Loading />
+
   return (
     <>
       <Head>
@@ -67,6 +70,17 @@ export default function Home () {
             Generate
           </button>
         </form>
+
+        <div className="flex items-center mt-10">
+          {result.length > 0 &&
+            result.map((item, index) => (
+              <div key={index}>
+                <img src={`data:image/png;base64,${item?.logoImage}`}
+                  alt={item.domainName} className="image" />
+                <p>Domain: {item.domainName}</p>
+              </div>
+            ))}
+        </div>
       </main>
     </>
   );
